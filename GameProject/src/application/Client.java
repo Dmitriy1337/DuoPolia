@@ -29,12 +29,19 @@ public class Client extends Application {
 	int ore = 0;
 	int res = 0;
 	int[][]map =new int[12][6];
+	int[][]status =new int[12][6];
 	int menuIsPressed = 0;
 	ImageView oType;
+	Label tcost;
 	Label name;
 	Label level;
 	Label description;
+	Label owner;
+	Label profit;
+	Label nres;
 	ImageView cityinfo;
+	ImageView qinfo;
+	ImageView finfo;
 	Button infomenu;
 	@Override
 	public void start(Stage s) {
@@ -46,7 +53,16 @@ public class Client extends Application {
 			}
 			
 		}
-				 map [0][0]=1 ;
+		for(int i = 0;i<12;i++){
+			for(int j = 0;j<6;j++){
+				
+				status[i][j]=0;
+			}
+			
+		}		
+		
+		
+		map [0][0]=1 ;
 				 String oak = "Oak City";
 				 String oakd ="Small city near the outer edge. It's only one brick factory near the city.";
 				 map[2][4]=2 ;
@@ -351,6 +367,24 @@ public class Client extends Application {
 			cityinfo.setVisible(false);
 			a1.getChildren().add(cityinfo);
 			
+			finfo = new ImageView("img/fmenu.png");//50+10
+			finfo.setLayoutX(0);//
+			finfo.setLayoutY(80);//
+			finfo.setFitHeight(700);//6x95height
+			finfo.setFitWidth(a1.getWidth());//12x100width
+			finfo.setVisible(false);
+			a1.getChildren().add(finfo);
+			
+			
+			qinfo = new ImageView("img/qmenu.png");//50+10
+			qinfo.setLayoutX(0);//
+			qinfo.setLayoutY(80);//
+			qinfo.setFitHeight(700);//6x95height
+			qinfo.setFitWidth(a1.getWidth());//12x100width
+			qinfo.setVisible(false);
+			a1.getChildren().add(qinfo);
+			
+			
 			oType = new ImageView(c);//50+10
 		oType.setLayoutX(35);//530
 		oType.setLayoutY(665);//
@@ -358,6 +392,37 @@ public class Client extends Application {
 		oType.setFitWidth(80);//12x100width
 		oType.setVisible(false);
 		a1.getChildren().add(oType);
+		
+		owner = new Label("city"); //имя обьекта
+		owner.setFont(new Font("Showcard Gothic",30));
+		owner.setLayoutX(330);
+		owner.setLayoutY(320);//170
+		owner.setVisible(false);
+		a1.getChildren().add(owner);
+		
+		profit = new Label("city"); //имя обьекта
+		profit.setFont(new Font("Showcard Gothic",25));
+		profit.setLayoutX(620);
+		profit.setLayoutY(520);//170
+		profit.setVisible(false);
+		a1.getChildren().add(profit);
+		
+		
+		tcost = new Label("city"); //имя обьекта
+		tcost.setFont(new Font("Showcard Gothic",30));
+		tcost.setLayoutX(400);
+		tcost.setLayoutY(450);//170
+		tcost.setVisible(false);
+		a1.getChildren().add(tcost);
+		
+		nres = new Label("city"); //имя обьекта
+		nres.setFont(new Font("Showcard Gothic",30));
+		nres.setLayoutX(460);
+		nres.setLayoutY(550);//170
+		nres.setVisible(false);
+		a1.getChildren().add(nres);
+		
+		
 		
 		name = new Label("city"); //имя обьекта
 		name.setFont(new Font("Showcard Gothic",40));
@@ -495,7 +560,26 @@ public class Client extends Application {
 			    		name.setVisible(true);	
 		    		}
 		    		
-		    		
+		    		if(map[(int) x][(int) y]==21||map[(int) x][(int) y]==22||map[(int) x][(int) y]==23||map[(int) x][(int) y]==24){
+		    			level.setText("1 lvl");
+			    		level.setVisible(true);	
+		    			
+		    		}
+		    		if(map[(int) x][(int) y]==25||map[(int) x][(int) y]==26||map[(int) x][(int) y]==27){
+		    			level.setText("2 lvl");
+			    		level.setVisible(true);	
+		    			
+		    		}
+		    		if(map[(int) x][(int) y]==28||map[(int) x][(int) y]==29){
+		    			level.setText("3 lvl");
+			    		level.setVisible(true);	
+		    			
+		    		}
+		    		if(map[(int) x][(int) y]==30){
+		    			level.setText("4 lvl");
+			    		level.setVisible(true);	
+		    			
+		    		}
 		    		
 		    		
 		    		
@@ -516,6 +600,38 @@ public class Client extends Application {
 	    			oType.setLayoutY(155);
 	    			name.setLayoutY(170);
 	    			description.setLayoutY(170);
+	    			tcost.setVisible(true);
+	    			profit.setVisible(true);
+	    			nres.setVisible(true);
+	    			if(map[(int) x][(int) y]==1){
+	    				tcost.setText("500");
+	    				profit.setText("4500$/turn");
+	    			nres.setText("500");
+	    			}
+	    			if(map[(int) x][(int) y]==2){
+	    				tcost.setText("500");
+	    				profit.setText("4500$/turn");
+	    				nres.setText("520");
+	    				}
+	    			if(map[(int) x][(int) y]==3){
+	    				tcost.setText("800");
+	    				profit.setText("7650$/turn");
+	    				nres.setText("850");
+	    			}
+	    			if(map[(int) x][(int) y]==4){
+	    				tcost.setText("800");
+	    				profit.setText("7600$/turn");
+	    				nres.setText("1000");
+	    			}
+	    			if(map[(int) x][(int) y]==5){
+	    				tcost.setText("1400");
+	    				profit.setText("14000$/turn");
+	    				nres.setText("2000");
+	    			}
+	    			if(status[(int) x][(int) y]==0){
+	    				owner.setVisible(true);
+	    				owner.setText("Not Defined");
+	    			}
 	    			closeim.setDisable(false);
 	    			closeim.setOnAction(cl->{
 	    				cityinfo.setVisible(false);
@@ -523,14 +639,80 @@ public class Client extends Application {
 		    			oType.setLayoutY(665);
 		    			name.setLayoutY(680);
 		    			description.setLayoutY(680);
+		    			tcost.setVisible(false);
+		    			profit.setVisible(false);
+		    			nres.setVisible(false);
+		    			if(status[(int) x][(int) y]==0){
+		    				owner.setText("Not Defined");
+		    				owner.setVisible(false);
+		    				
+		    			}
 	    			});
 	    			
 	    			s.setScene(sc1);//установка сцены
 	    			s.show();//запуск стейджа
 	    			
 	    		}	
+	    		if(oType.getImage()==o){
+	    			System.out.println("lol");
+	    			qinfo.setVisible(true);
+	    			lpanel.setVisible(false);
+	    			oType.setLayoutY(155);
+	    			name.setLayoutY(170);
+	    			level.setLayoutY(250);
+	    			description.setLayoutY(170);
+	    			if(status[(int) x][(int) y]==0){
+	    				owner.setVisible(true);
+	    				owner.setText("Not Defined");
+	    			}
+	    			closeim.setDisable(false);
+	    			closeim.setOnAction(cl->{
+	    				qinfo.setVisible(false);
+		    			lpanel.setVisible(true);
+		    			oType.setLayoutY(665);
+		    			name.setLayoutY(680);
+		    			level.setLayoutY(735);
+		    			if(status[(int) x][(int) y]==0){
+		    				owner.setVisible(false);
+		    				owner.setText("Not Defined");
+		    			}
+		    			description.setLayoutY(680);
+	    			});
 	    			
+	    			s.setScene(sc1);//установка сцены
+	    			s.show();//запуск стейджа
 	    			
+	    		}	
+	    		if(oType.getImage()==r){
+	    			System.out.println("lol");
+	    			finfo.setVisible(true);
+	    			lpanel.setVisible(false);
+	    			oType.setLayoutY(155);
+	    			name.setLayoutY(170);
+	    			level.setLayoutY(250);
+	    			description.setLayoutY(170);
+	    			if(status[(int) x][(int) y]==0){
+	    				owner.setVisible(true);
+	    				owner.setText("Not Defined");
+	    			}
+	    			closeim.setDisable(false);
+	    			closeim.setOnAction(cl->{
+	    				finfo.setVisible(false);
+		    			lpanel.setVisible(true);
+		    			oType.setLayoutY(665);
+		    			name.setLayoutY(680);
+		    			level.setLayoutY(735);
+		    			description.setLayoutY(680);
+		    			if(status[(int) x][(int) y]==0){
+		    				owner.setVisible(false);
+		    				owner.setText("Not Defined");
+		    			}
+	    			});
+	    			
+	    			s.setScene(sc1);//установка сцены
+	    			s.show();//запуск стейджа
+	    			
+	    		}	
 	    		});
 	    		infomenu.setDisable(false);
 	    		
