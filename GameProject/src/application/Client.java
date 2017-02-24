@@ -3,6 +3,7 @@ package application;
 
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -27,24 +28,60 @@ public class Client extends Application {
 	int money=50000;
 	int ore = 0;
 	int res = 0;
-	int [][]map;
+	int[][]map =new int[12][6];
 	int menuIsPressed = 0;
+	ImageView oType;
+	Label name;
 	@Override
 	public void start(Stage s) {
-		map =new int[9][9];
-		for(int i = 0;i<9;i++){
-			for(int j = 0;j<9;j++){
+		
+		for(int i = 0;i<12;i++){
+			for(int j = 0;j<6;j++){
 				
 				map[i][j]=0;
 			}
 			
 		}
-		
+				 map [0][0]=1 ;
+				 String oak = "Oak City";
+				 map[2][4]=2 ;
+				 String pls = "Pine-Lake-City";
+				 map[5][2] =3;
+				 String newbirch = "New - Birch";
+				 map[7][5] =4;
+				 String sana= "San-Acacia";
+				 map[9][2] =5;
+				 String lasf = "Las - Fir";
+				 
+				 
+				 map [3][0] =11;
+				 map [0][3]= 12;
+				 map[1][3] =13;
+				 map [3][3] =14;
+				 map [0][5] =15;
+				 map [5][0] =16;
+				 map [7][1] =17;
+				 map  [5][5] =18;
+				 map  [10][5] =19;
+				 map  [11][0] =20;
+				 
+				  map[1][1]= 21;
+				  map[0][4]= 22;
+				  map[2][3] =23;
+				  map[3][1]= 24;
+				  map[4][5]= 25;
+				  map[6][3]= 26;
+				  map[8][0] =27;
+				  map[8][4]= 28;
+				  map[10][3]=29;
+				  map[11][5]=30;
+				 
+				
+				 
 		
 		
 		AnchorPane a1 = new AnchorPane();
 		Scene sc1 = new Scene(a1);
-		
 		
 		
 		
@@ -115,36 +152,58 @@ public class Client extends Application {
 		a1.getChildren().add(rescounter);
 		
 		
-		ImageView map = new ImageView("img/map.png");//иконка материалов
-		map.setLayoutX(150);//
-		map.setLayoutY(80);//
-		map.setFitHeight(570);//6x95height
-		map.setFitWidth(1200);//12x100width
-		a1.getChildren().add(map);
+		ImageView mapi = new ImageView("img/map.png");//иконка материалов
+		mapi.setLayoutX(150);//
+		mapi.setLayoutY(80);//
+		mapi.setFitHeight(570);//6x95height
+		mapi.setFitWidth(1200);//12x100width
+		a1.getChildren().add(mapi);
 		
 		
-		ImageView table = new ImageView("img/table.png");//иконка материалов
-		table.setLayoutX(150);//
-		table.setLayoutY(80);//
-		table.setFitHeight(570);//6x95height
-		table.setFitWidth(1200);//12x100width
-		a1.getChildren().add(table);
+		for(int i=0;i<12;i++){
+			for(int j = 0;j<6;j++){
+				
+				if(map[i][j]==1||map[i][j]==2||map[i][j]==3||map[i][j]==4||map[i][j]==5){
+				
+				ImageView house = new ImageView("img/cityi.png");//бэкграунд верхней	панели
+				house.setLayoutX(150+100*i);//
+				house.setLayoutY(80+95*j);//
+				house.setFitHeight(95);//
+				house.setFitWidth(100);//
+				a1.getChildren().add(house);
+			}
+				if(map[i][j]==11||map[i][j]==12||map[i][j]==13||map[i][j]==14||map[i][j]==15||map[i][j]==16||map[i][j]==17||map[i][j]==18||map[i][j]==19||map[i][j]==20){
+					
+					ImageView ore = new ImageView("img/orei.png");//бэкграунд верхней	панели
+					ore.setLayoutX(150+100*i);//
+					ore.setLayoutY(80+95*j);//
+					ore.setFitHeight(95);//
+					ore.setFitWidth(100);//
+					a1.getChildren().add(ore);
+				}
+				if(map[i][j]==21||map[i][j]==22||map[i][j]==23||map[i][j]==24||map[i][j]==25||map[i][j]==26||map[i][j]==27||map[i][j]==28||map[i][j]==29||map[i][j]==30){
+					
+					ImageView res = new ImageView("img/factl.png");//бэкграунд верхней	панели
+					res.setLayoutX(150+100*i);//
+					res.setLayoutY(80+95*j);//
+					res.setFitHeight(95);//
+					res.setFitWidth(100);//
+					a1.getChildren().add(res);
+				}
+			
+			
+			}
+		}
 		
 		
 		
-		EventHandler handler = new EventHandler<InputEvent>() {
-		    public void handle(InputEvent event) {
-		    	Point location = MouseInfo.getPointerInfo().getLocation();
-		        double x = (int)(location.getX()-150)/100;
-		        double y =(int) (location.getY()-80)/95;
-		    	
-		    	System.out.println("Handling event " + event.getEventType()+"/"+x+"/"+y); 
-		        event.consume();
-		    }
 		
-		};
 		
-		map.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
+		
+		
+		
+		
+		
 		
 		
 		
@@ -173,6 +232,24 @@ public class Client extends Application {
 		menui.setFitWidth(300);//12x100width
 		menui.setVisible(false);
 		a1.getChildren().add(menui);
+		
+		
+		ImageView lpanel = new ImageView("img/lowpanel.png");//иконка материалов
+		lpanel.setLayoutX(0);//
+		lpanel.setLayoutY(610);//
+		lpanel.setFitHeight(220);//80
+		lpanel.setFitWidth(a1.getWidth());//150
+		lpanel.setVisible(true);
+		a1.getChildren().add(lpanel);
+		
+		Image c=new Image("img/cityi.png");
+		Image o=new Image ("img/orei.png");
+		Image r=new Image ("img/factl.png");
+		
+		
+		
+		
+		
 		
 		
 		Button resume = new Button();
@@ -238,6 +315,73 @@ public class Client extends Application {
 			
 		});
 		a1.getChildren().add(menu);
+	
+		oType = new ImageView(c);//50+10
+		oType.setLayoutX(35);//
+		oType.setLayoutY(665);//
+		oType.setFitHeight(80);//6x95height
+		oType.setFitWidth(80);//12x100width
+		oType.setVisible(false);
+		a1.getChildren().add(oType);
+		
+		name = new Label("city"); //имя обьекта
+		name.setFont(new Font("Showcard Gothic",40));
+		name.setLayoutX(170);
+		name.setLayoutY(680);//170
+		name.setVisible(false);
+		a1.getChildren().add(name);
+		
+		
+		
+		EventHandler handler = new EventHandler<InputEvent>() {
+		    public void handle(InputEvent event) {
+		    	Point location = MouseInfo.getPointerInfo().getLocation();
+		        double x = (int)(location.getX()-150)/100;
+		        double y =(int) (location.getY()-80)/95;
+		    	
+		    	System.out.println("Handling event " + event.getEventType()+"/"+x+"/"+y); 
+		        
+		    	if(map[(int) x][(int) y]==1||map[(int) x][(int) y]==2||map[(int) x][(int) y]==3||map[(int) x][(int) y]==4||map[(int) x][(int) y]==5){
+		    		oType.setImage(c);
+		    		oType.setVisible(true);
+		    		if(map[(int) x][(int) y]==1){
+		    		name.setText(oak);
+		    		name.setVisible(true);	
+		    		}
+		    		
+		    		
+		    		s.setScene(sc1);//установка сцены
+		    		s.show();//запуск стейджа
+		    		
+		    		
+		    	}
+		    	if(map[(int) x][(int) y]==11||map[(int) x][(int) y]==12||map[(int) x][(int) y]==13||map[(int) x][(int) y]==14||map[(int) x][(int) y]==15||map[(int) x][(int) y]==16||map[(int) x][(int) y]==17||map[(int) x][(int) y]==18||map[(int) x][(int) y]==19||map[(int) x][(int) y]==20){
+		    		oType.setImage(o);
+		    		oType.setVisible(true);
+		    		
+		    		s.setScene(sc1);//установка сцены
+		    		s.show();//запуск стейджа
+		    		
+		    		
+		    	}
+		    	if(map[(int) x][(int) y]==21||map[(int) x][(int) y]==22||map[(int) x][(int) y]==23||map[(int) x][(int) y]==24||map[(int) x][(int) y]==25||map[(int) x][(int) y]==26||map[(int) x][(int) y]==27||map[(int) x][(int) y]==28||map[(int) x][(int) y]==29||map[(int) x][(int) y]==30){
+		    		oType.setImage(r);
+		    		oType.setVisible(true);
+		    		
+		    		s.setScene(sc1);//установка сцены
+		    		s.show();//запуск стейджа
+		    		
+		    		
+		    	}
+		    	
+		    	
+		    	event.consume();
+		    }
+		
+		};
+		
+		a1.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
+		
 		
 		
 	s.setFullScreen(true);//фуллскрин
