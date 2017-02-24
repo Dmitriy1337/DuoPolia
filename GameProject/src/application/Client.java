@@ -32,6 +32,10 @@ public class Client extends Application {
 	int menuIsPressed = 0;
 	ImageView oType;
 	Label name;
+	Label level;
+	Label description;
+	ImageView cityinfo;
+	Button infomenu;
 	@Override
 	public void start(Stage s) {
 		
@@ -44,31 +48,39 @@ public class Client extends Application {
 		}
 				 map [0][0]=1 ;
 				 String oak = "Oak City";
+				 String oakd ="Small city near the outer edge. It's only one brick factory near the city.";
 				 map[2][4]=2 ;
 				 String pls = "Pine-Lake-City";
+				 String plsd = "Industrial city surrounded with lots of factories and quarries.";
 				 map[5][2] =3;
 				 String newbirch = "New - Birch";
+				 String newbirchd = "Big City in the center of the region. There aren't a lot of facilities near the city.";
 				 map[7][5] =4;
 				 String sana= "San-Acacia";
+				 String sanad= "Middle-sized city at the south of the region surrounded by some quarries and factories.";
 				 map[9][2] =5;
 				 String lasf = "Las - Fir";
+				 String lasfd = "Middle-sized touristic city located at the east of the region. Surrounded with some facilities.";
 				 
-				 
-				 map [3][0] =11;
-				 map [0][3]= 12;
-				 map[1][3] =13;
-				 map [3][3] =14;
-				 map [0][5] =15;
-				 map [5][0] =16;
-				 map [7][1] =17;
-				 map  [5][5] =18;
-				 map  [10][5] =19;
-				 map  [11][0] =20;
+				 map [3][0] =11;//sq
+				 map [0][3]= 12;//sp
+				  map[1][3] =13;//sq
+				 map [3][3] =14;//sp
+				 String sq = "Stone Quarry";
+				 String sp = "Sand Pit";
+				 map [0][5] =15;//sq
+				 map [5][0] =16;//sp
+				 map [7][1] =17;//sq
+				 map  [5][5] =18;//sp
+				 map  [10][5] =19;//sq
+				 map  [11][0] =20;//sp
 				 
 				  map[1][1]= 21;
 				  map[0][4]= 22;
 				  map[2][3] =23;
 				  map[3][1]= 24;
+				  String bf = "Brick Factory";
+					 String cf = "Concrete Factory";
 				  map[4][5]= 25;
 				  map[6][3]= 26;
 				  map[8][0] =27;
@@ -152,7 +164,7 @@ public class Client extends Application {
 		a1.getChildren().add(rescounter);
 		
 		
-		ImageView mapi = new ImageView("img/map.png");//иконка материалов
+		ImageView mapi = new ImageView("img/map.png");//карта
 		mapi.setLayoutX(150);//
 		mapi.setLayoutY(80);//
 		mapi.setFitHeight(570);//6x95height
@@ -258,6 +270,7 @@ public class Client extends Application {
 		resume.setPrefHeight(45);//
 		resume.setPrefWidth(233);//
 		resume.setOpacity(0);
+		resume.setDisable(true);
 		resume.setOnAction(resum->{
 			menui.setVisible(false);
 			a1.getChildren().remove(resume);
@@ -271,12 +284,14 @@ public class Client extends Application {
 		gexit.setPrefHeight(45);//
 		gexit.setPrefWidth(233);//
 		gexit.setOpacity(0);
+		gexit.setDisable(true);
 		gexit.setOnAction(gex->{
 			System.exit(0);
 			//a1.getChildren().remove(gexit);
 			
 		});
-		
+		a1.getChildren().add(resume);
+		a1.getChildren().add(gexit);
 		
 		Button menu = new Button();
 		menu.setLayoutX(0);//50
@@ -290,6 +305,7 @@ public class Client extends Application {
 			if(menuIsPressed==1){
 				menui.setVisible(false);
 				System.out.println("f");
+				resume.setDisable(true);
 				a1.getChildren().remove(resume);
 				s.show();//запуск стейджа
 				
@@ -299,8 +315,9 @@ public class Client extends Application {
 			if(menuIsPressed==0){
 				menui.setVisible(true);
 				System.out.println("t");
-				a1.getChildren().add(resume);
-				a1.getChildren().add(gexit);
+				resume.setDisable(false);
+				gexit.setDisable(false);
+				
 				s.setScene(sc1);//установка сцены
 				s.show();//запуск стейджа
 				
@@ -315,9 +332,27 @@ public class Client extends Application {
 			
 		});
 		a1.getChildren().add(menu);
-	
-		oType = new ImageView(c);//50+10
-		oType.setLayoutX(35);//
+		 infomenu = new Button();
+			infomenu.setLayoutX(10);//50
+			infomenu.setLayoutY(615);//125
+			infomenu.setPrefHeight(30);//
+			infomenu.setPrefWidth(75);//
+			infomenu.setDisable(true);
+			infomenu.setOpacity(0);
+			a1.getChildren().add(infomenu);
+		
+			
+			
+			cityinfo = new ImageView("img/infomenu.png");//50+10
+			cityinfo.setLayoutX(0);//
+			cityinfo.setLayoutY(80);//
+			cityinfo.setFitHeight(700);//6x95height
+			cityinfo.setFitWidth(a1.getWidth());//12x100width
+			cityinfo.setVisible(false);
+			a1.getChildren().add(cityinfo);
+			
+			oType = new ImageView(c);//50+10
+		oType.setLayoutX(35);//530
 		oType.setLayoutY(665);//
 		oType.setFitHeight(80);//6x95height
 		oType.setFitWidth(80);//12x100width
@@ -330,7 +365,29 @@ public class Client extends Application {
 		name.setLayoutY(680);//170
 		name.setVisible(false);
 		a1.getChildren().add(name);
+		level = new Label("lvl"); //имя обьекта
+		level.setFont(new Font("Showcard Gothic",27));
+		level.setLayoutX(170);
+		level.setLayoutY(735);//170
+		level.setVisible(false);
+		a1.getChildren().add(level);
+		description = new Label("hi"); //имя обьекта
+		description.setFont(new Font("Showcard Gothic",27));
+		description.setPrefWidth(600);
+		description.setPrefHeight(100);
+		description.setLayoutX(700);
+		description.setLayoutY(650);//170
+		description.setVisible(false);
+		a1.getChildren().add(description);
 		
+		Button closeim = new Button();
+		closeim.setLayoutX(10);//
+		closeim.setLayoutY(85);//
+		closeim.setPrefHeight(30);//
+		closeim.setPrefWidth(70);//
+		closeim.setOpacity(0);
+		closeim.setDisable(true);
+		a1.getChildren().add(closeim);
 		
 		
 		EventHandler handler = new EventHandler<InputEvent>() {
@@ -340,15 +397,44 @@ public class Client extends Application {
 		        double y =(int) (location.getY()-80)/95;
 		    	
 		    	System.out.println("Handling event " + event.getEventType()+"/"+x+"/"+y); 
-		        
+		        if(location.getX()>150&&location.getY()>80){
 		    	if(map[(int) x][(int) y]==1||map[(int) x][(int) y]==2||map[(int) x][(int) y]==3||map[(int) x][(int) y]==4||map[(int) x][(int) y]==5){
+		    		level.setText("");
+		    		level.setVisible(true);
 		    		oType.setImage(c);
 		    		oType.setVisible(true);
 		    		if(map[(int) x][(int) y]==1){
 		    		name.setText(oak);
 		    		name.setVisible(true);	
-		    		}
+		    		description.setText(oakd);
+		    		description.setVisible(true);
 		    		
+		    		}
+		    		if(map[(int) x][(int) y]==2){
+			    		name.setText(pls);
+			    		name.setVisible(true);	
+			    		description.setText(plsd);
+			    		description.setVisible(true);	
+		    		}
+		    		if(map[(int) x][(int) y]==3){
+			    		name.setText(newbirch);
+			    		name.setVisible(true);	
+			    		description.setText(newbirchd);
+			    		description.setVisible(true);	
+		    		}
+		    		if(map[(int) x][(int) y]==4){
+			    		name.setText(sana);
+			    		name.setVisible(true);	
+			    		description.setText(sanad);
+			    		description.setVisible(true);	
+	
+		    		}
+		    		if(map[(int) x][(int) y]==5){
+			    		name.setText(lasf);
+			    		name.setVisible(true);	
+			    		description.setText(lasfd);
+			    		description.setVisible(true);	
+		    		}
 		    		
 		    		s.setScene(sc1);//установка сцены
 		    		s.show();//запуск стейджа
@@ -358,6 +444,38 @@ public class Client extends Application {
 		    	if(map[(int) x][(int) y]==11||map[(int) x][(int) y]==12||map[(int) x][(int) y]==13||map[(int) x][(int) y]==14||map[(int) x][(int) y]==15||map[(int) x][(int) y]==16||map[(int) x][(int) y]==17||map[(int) x][(int) y]==18||map[(int) x][(int) y]==19||map[(int) x][(int) y]==20){
 		    		oType.setImage(o);
 		    		oType.setVisible(true);
+		    		if(map[(int) x][(int) y]==11||map[(int) x][(int) y]==13||map[(int) x][(int) y]==15||map[(int) x][(int) y]==17||map[(int) x][(int) y]==19){
+		    			name.setText(sq);
+			    		name.setVisible(true);	
+		    		}
+		    		else{
+		    			name.setText(sp);
+			    		name.setVisible(true);	
+		    		}
+		    		
+		    		if(map[(int) x][(int) y]==11||map[(int) x][(int) y]==12||map[(int) x][(int) y]==13||map[(int) x][(int) y]==14){
+		    			level.setText("1 lvl");
+			    		level.setVisible(true);	
+		    			
+		    		}
+		    		if(map[(int) x][(int) y]==15||map[(int) x][(int) y]==16||map[(int) x][(int) y]==17){
+		    			level.setText("2 lvl");
+			    		level.setVisible(true);	
+		    			
+		    		}
+		    		if(map[(int) x][(int) y]==18||map[(int) x][(int) y]==19){
+		    			level.setText("3 lvl");
+			    		level.setVisible(true);	
+		    			
+		    		}
+		    		if(map[(int) x][(int) y]==20){
+		    			level.setText("4 lvl");
+			    		level.setVisible(true);	
+		    			
+		    		}
+		    		
+		    		
+		    		
 		    		
 		    		s.setScene(sc1);//установка сцены
 		    		s.show();//запуск стейджа
@@ -368,6 +486,21 @@ public class Client extends Application {
 		    		oType.setImage(r);
 		    		oType.setVisible(true);
 		    		
+		    		if(map[(int) x][(int) y]==21||map[(int) x][(int) y]==23||map[(int) x][(int) y]==25||map[(int) x][(int) y]==27||map[(int) x][(int) y]==29){
+		    			name.setText(bf);
+			    		name.setVisible(true);	
+		    		}
+		    		else{
+		    			name.setText(cf);
+			    		name.setVisible(true);	
+		    		}
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
 		    		s.setScene(sc1);//установка сцены
 		    		s.show();//запуск стейджа
 		    		
@@ -375,9 +508,36 @@ public class Client extends Application {
 		    	}
 		    	
 		    	
+	    		infomenu.setOnAction(bb2->{
+	    		if(oType.getImage()==c){
+	    			System.out.println("lol");
+	    			cityinfo.setVisible(true);
+	    			lpanel.setVisible(false);
+	    			oType.setLayoutY(155);
+	    			name.setLayoutY(170);
+	    			description.setLayoutY(170);
+	    			closeim.setDisable(false);
+	    			closeim.setOnAction(cl->{
+	    				cityinfo.setVisible(false);
+		    			lpanel.setVisible(true);
+		    			oType.setLayoutY(665);
+		    			name.setLayoutY(680);
+		    			description.setLayoutY(680);
+	    			});
+	    			
+	    			s.setScene(sc1);//установка сцены
+	    			s.show();//запуск стейджа
+	    			
+	    		}	
+	    			
+	    			
+	    		});
+	    		infomenu.setDisable(false);
+	    		
+	    		
 		    	event.consume();
 		    }
-		
+		    }
 		};
 		
 		a1.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
